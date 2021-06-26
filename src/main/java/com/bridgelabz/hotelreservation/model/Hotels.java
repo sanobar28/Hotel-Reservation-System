@@ -12,6 +12,14 @@ public class Hotels {
 	int WeekdayRates;
 	int HotelRating;
 
+	public int getHotelRating() {
+		return HotelRating;
+	}
+
+	public void setHotelRating(int hotelRating) {
+		HotelRating = hotelRating;
+	}
+
 	public String getHotelName() {
 		return hotelName;
 	}
@@ -52,6 +60,10 @@ public class Hotels {
 		this.WeekendRates= WeekendRates;
 		this.HotelRating = HotelRating;
 
+	}
+
+	public Hotels() {
+		// TODO Auto-generated constructor stub
 	}
 
 }

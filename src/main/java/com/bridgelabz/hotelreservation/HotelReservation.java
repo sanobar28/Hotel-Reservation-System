@@ -1,32 +1,45 @@
 package com.bridgelabz.hotelreservation;
 
-import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import com.bridgelabz.hotelreservation.model.Hotels;
 
 public class HotelReservation {
 
 	// hotellist
-	List<Hotels> HOTELLIST = new ArrayList<Hotels>();
+	List<Hotels> hotelList = new ArrayList<Hotels>();
 
 	/**
 	 * UC-1 Method to add hotel in hotel reservation system
 	 */
-	public void addHotel() {
+	public boolean addHotel() {
 
-		final String hotel1 = "Lakewood";
-		final String hotel2 = "Bridgewood";
-		final String hotel3 = "Rigewood";
-		final String customerType = "Regular";
+		final String hotel;
+		final String customerType;
 		final int WeekendRates, WeekdayRates, HotelRating;
 
-		HOTELLIST.add(new Hotels(hotel1, customerType, 90, 110, 3));
-		HOTELLIST.add(new Hotels(hotel2, customerType, 60, 160, 5));
-		HOTELLIST.add(new Hotels(hotel3, customerType, 150, 220, 4));
+		System.out.print("Hotel Name : ");
+		hotel = ((Hotels) hotelList).getHotelName();
 
+		System.out.print("Enter customer type : ");
+		customerType = ((Hotels) hotelList).getCustomerType();
+
+		System.out.print("Enter weekend rates : ");
+		WeekendRates = ((Hotels) hotelList).getWeekendRates();
+
+		System.out.print("Enter weekday rates : ");
+		WeekdayRates = ((Hotels) hotelList).getWeekdayRates();
+
+		System.out.print("Enter Ratings : ");
+		HotelRating = ((Hotels) hotelList).getHotelRating();
+
+		hotelList.add(new Hotels(hotel, customerType, WeekendRates, WeekdayRates, HotelRating));
+
+		return false;
 	}
 
 	/**
@@ -37,15 +50,32 @@ public class HotelReservation {
 
 		Scanner sc = new Scanner(System.in);
 
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy");
+		String dateTo = sc.next();
+		String dateFrom = sc.next();
+
 		try {
-			System.out.println(formatter);
+			LocalDate date1 = LocalDate.parse(dateTo, dtf);
+			LocalDate date2 = LocalDate.parse(dateFrom, dtf);
+			long daysBetween = Duration.between(date1, date2).toDays();
+			System.out.println("Total Days: " + daysBetween);
 		} catch (Exception e) {
 			System.out.println("Error occurred" + e.getMessage());
 		}
+	}
 
-		String dateTo = sc.next();
-		String dateFrom = sc.next();
+	/**
+	 * Method to display the list of Hotels
+	 * 
+	 */
+	public void displayHotels() {
+		if (hotelList.isEmpty()) {
+			System.out.println("No Records!!!");
+		} else {
+			for (Hotels hotels : hotelList) {
+				System.out.println(hotels);
+			}
+		}
 
 	}
 
