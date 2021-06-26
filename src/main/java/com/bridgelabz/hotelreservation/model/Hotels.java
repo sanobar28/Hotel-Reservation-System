@@ -43,14 +43,15 @@ public class Hotels {
 	public void setWeekdayRates(int weekdayRates) {
 		WeekdayRates = weekdayRates;
 	}
-	
+
 	public Hotels(String hotelName, String customerType, int WeekendRates, int WeekdayRates, int HotelRating) {
-		
-		this.customerType=customerType;
-		this.hotelName= hotelName;
-		this.WeekdayRates=WeekdayRates;
-		this.HotelRating=HotelRating;
-		
+
+		this.customerType = customerType;
+		this.hotelName = hotelName;
+		this.WeekdayRates = WeekdayRates;
+		this.WeekendRates= WeekendRates;
+		this.HotelRating = HotelRating;
+
 	}
 
 }
