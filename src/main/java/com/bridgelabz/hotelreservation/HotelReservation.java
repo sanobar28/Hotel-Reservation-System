@@ -15,6 +15,7 @@ public class HotelReservation {
 
 	/**
 	 * UC-1 Method to add hotel in hotel reservation system
+	 * 
 	 * @throws HotelReservationException
 	 */
 	public void addHotel() throws HotelReservationException {
@@ -48,25 +49,26 @@ public class HotelReservation {
 
 	/**
 	 * Method to find hotel for given condition
+	 * 
 	 * @throws ParseException
 	 * @throws HotelReservationException
 	 */
 	public void findHotel() throws ParseException, HotelReservationException {
 
 		try {
-				System.out.println("Search hotel By...\n" + "1: Price and Rating\n" + "2: Cheapest On Day\n" + "3: Back");
-				int choice = InputUtil.getIntValue();
-				switch (choice) {
-				case 1:
-					Search.sortByPrice(hotelList);
-					break;
-				case 2:
-					Search.findCheapestByDay(hotelList);
-					break;
-				case 3:
-					return;
-				default:
-					System.out.println("Please Enter Valid Option...");
+			System.out.println("Search hotel By...\n" + "1: Price and Rating\n" + "2: Cheapest On Day\n" + "3: Back");
+			int choice = InputUtil.getIntValue();
+			switch (choice) {
+			case 1:
+				Search.sortByPrice(hotelList);
+				break;
+			case 2:
+				Search.findCheapestByDay(hotelList);
+				break;
+			case 3:
+				return;
+			default:
+				System.out.println("Please Enter Valid Option...");
 			}
 		} catch (Exception e) {
 			throw new HotelReservationException(e.getMessage());
