@@ -26,7 +26,7 @@ public class HotelReservation {
 
 		System.out.print("Enter customer type : ");
 		customerType = InputUtil.getStringValue();
-		;
+		
 
 		System.out.print("Enter weekend rates : ");
 		WeekendRates = InputUtil.getIntValue();
@@ -48,7 +48,7 @@ public class HotelReservation {
 
 	public void findHotel() throws ParseException {
 
-		System.out.println("Search hotel By...\n" + "1: Cheapest Price\n" +  "2: Cheapest On Day\n" + "3: Back");
+		System.out.println("Search hotel By...\n" + "1: Price and Rating\n" +  "2: Cheapest On Day\n" + "3: Back");
 		int choice = InputUtil.getIntValue();
 		switch (choice) {
 		case 1:

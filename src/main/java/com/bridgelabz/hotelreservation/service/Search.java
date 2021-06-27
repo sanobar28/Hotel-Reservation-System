@@ -3,7 +3,6 @@ package com.bridgelabz.hotelreservation.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -35,31 +34,44 @@ public class Search {
 		int weekdayrate;
 		int totalCost = 0;
 
-		Date date1 = sdf.parse(dateFrom);
-		Date date2 = sdf.parse(dateTo);
-		long difference_In_Time = date2.getTime() - date1.getTime();
+		try {
+			Date date1 = sdf.parse(dateFrom);
+			Date date2 = sdf.parse(dateTo);
+			long difference_In_Time = date2.getTime() - date1.getTime();
 
-		long totalDays = (difference_In_Time / (1000 * 60 * 60 * 24)) % 365;
-		System.out.println("Total Days: " + totalDays);
+			long totalDays = (difference_In_Time / (1000 * 60 * 60 * 24)) % 365;
+			System.out.println("Total Days: " + totalDays);
 
-		List<Hotels> list = new ArrayList<>();
-		for (Hotels h : hotel) {
-			weekendrate = (int) (h.getWeekendRates() * totalDays);
-			weekdayrate = (int) (h.getWeekdayRates() * totalDays);
-			totalCost = weekendrate + weekdayrate;
-			h.setTotalCost(totalCost);
-			list.add(h);
+			List<Hotels> list = new ArrayList<>();
+			for (Hotels h : hotel) {
+				weekendrate = (int) (h.getWeekendRates() * totalDays);
+				weekdayrate = (int) (h.getWeekdayRates() * totalDays);
+				totalCost = weekendrate + weekdayrate;
+				h.setTotalCost(totalCost);
+				list.add(h);
+			}
+
+			// finds cheapest hotel
+			Hotels cheapest = list.stream().min(Comparator.comparing(Hotels::getTotalCost))
+					.orElseThrow(NoSuchElementException::new);
+			System.out.println("Cheapest hotel: " + cheapest);
+
+			// Best rated hotel for given rate
+			Hotels CheapAndBest = hotel.stream().max(Comparator.comparing(Hotels::getHotelRating))
+					.orElseThrow(NoSuchElementException::new);
+			System.out.println("Hotel with best ratings: " + CheapAndBest);
+
+		} catch (ParseException e) {
+
+			System.out.println("Error Occured" + e.getMessage());
+
 		}
 
-		// finds cheapest hotel
-		Hotels cheapest = list.stream().min(Comparator.comparing(Hotels::getTotalCost))
-				.orElseThrow(NoSuchElementException::new);
-		System.out.println("Cheapest hotel: " + cheapest);
 	}
 
-	
 	/**
 	 * UC-4 Ability to find cheapest on weekday and weekends
+	 * 
 	 * @param hotel
 	 */
 	public static void findCheapestByDay(List<Hotels> hotel) {
