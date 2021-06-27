@@ -25,7 +25,7 @@ public class HotelReservationMain {
 
 			System.out.println("1: Add Hotel  ");
 			System.out.println("2: Display Hotel list  ");
-			System.out.println("3: Find cheapest      ");
+			System.out.println("3: Find Hotel      ");
 			System.out.println("4: Exit		       \n");
 			System.out.println("--- Enter Your Choice ---");
 

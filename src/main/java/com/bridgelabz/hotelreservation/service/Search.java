@@ -13,15 +13,15 @@ import java.util.Scanner;
 import com.bridgelabz.hotelreservation.model.Hotels;
 
 public class Search {
-	
-	
+
 	/**
 	 * UC-2 Method to find cheapest hotel for given date range
+	 * 
 	 * @param hotel
 	 * @throws ParseException
 	 */
 	public static void sortByPrice(List<Hotels> hotel) throws ParseException {
-		
+
 		Scanner sc = new Scanner(System.in);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -41,7 +41,7 @@ public class Search {
 
 		long totalDays = (difference_In_Time / (1000 * 60 * 60 * 24)) % 365;
 		System.out.println("Total Days: " + totalDays);
-		
+
 		List<Hotels> list = new ArrayList<>();
 		for (Hotels h : hotel) {
 			weekendrate = (int) (h.getWeekendRates() * totalDays);
@@ -49,11 +49,31 @@ public class Search {
 			totalCost = weekendrate + weekdayrate;
 			h.setTotalCost(totalCost);
 			list.add(h);
-		}	
-		Hotels sorted = list.stream().min(Comparator.comparing(Hotels::getTotalCost)).orElseThrow(NoSuchElementException::new);
-		
-		System.out.println("Cheapest hotel: " + sorted);
-		
+		}
+
+		// finds cheapest hotel
+		Hotels cheapest = list.stream().min(Comparator.comparing(Hotels::getTotalCost))
+				.orElseThrow(NoSuchElementException::new);
+		System.out.println("Cheapest hotel: " + cheapest);
+	}
+
+	
+	/**
+	 * UC-4 Ability to find cheapest on weekday and weekends
+	 * @param hotel
+	 */
+	public static void findCheapestByDay(List<Hotels> hotel) {
+
+		// find cheapest on weekdays
+		Hotels weekdayCheap = hotel.stream().min(Comparator.comparing(Hotels::getWeekdayRates))
+				.orElseThrow(NoSuchElementException::new);
+		System.out.println("Cheapest on weekday: " + weekdayCheap);
+
+		// find cheapest on weekdays
+		Hotels weekendCheap = hotel.stream().min(Comparator.comparing(Hotels::getWeekendRates))
+				.orElseThrow(NoSuchElementException::new);
+		System.out.println("Cheapest on weekend: " + weekendCheap);
+
 	}
 
 }

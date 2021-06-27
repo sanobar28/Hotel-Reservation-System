@@ -48,13 +48,16 @@ public class HotelReservation {
 
 	public void findHotel() throws ParseException {
 
-		System.out.println("Search hotel By...\n" + "1: Cheapest Price\n" + "2: Back");
+		System.out.println("Search hotel By...\n" + "1: Cheapest Price\n" +  "2: Cheapest On Day\n" + "3: Back");
 		int choice = InputUtil.getIntValue();
 		switch (choice) {
 		case 1:
 			Search.sortByPrice(hotelList);
 			break;
 		case 2:
+			Search.findCheapestByDay(hotelList);
+			break;
+		case 3:
 			return;
 		default:
 			System.out.println("Please Enter Valid Option...");
