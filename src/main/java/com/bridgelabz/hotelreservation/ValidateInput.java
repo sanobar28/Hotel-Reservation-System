@@ -3,11 +3,9 @@ package com.bridgelabz.hotelreservation;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import com.bridgelabz.hotelreservation.model.Hotels;
-
 public class ValidateInput {
 
-	static Hotels user = new Hotels();
+	
 	static Scanner sc = new Scanner(System.in);
 
 	/**

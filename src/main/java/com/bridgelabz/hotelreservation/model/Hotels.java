@@ -11,6 +11,15 @@ public class Hotels {
 	int WeekendRates;
 	int WeekdayRates;
 	int HotelRating;
+	int totalCost;
+
+	public int getTotalCost() {
+		return totalCost;
+	}
+
+	public void setTotalCost(int totalCost) {
+		this.totalCost = totalCost;
+	}
 
 	public int getHotelRating() {
 		return HotelRating;
@@ -52,18 +61,23 @@ public class Hotels {
 		WeekdayRates = weekdayRates;
 	}
 
-	public Hotels(String hotelName, String customerType, int WeekendRates, int WeekdayRates, int HotelRating) {
+	public Hotels(String hotelName, String customerType, int WeekendRates, int WeekdayRates, int HotelRating, int totalCost) {
 
 		this.customerType = customerType;
 		this.hotelName = hotelName;
 		this.WeekdayRates = WeekdayRates;
 		this.WeekendRates= WeekendRates;
 		this.HotelRating = HotelRating;
+		this.totalCost = totalCost;
 
 	}
+	
 
-	public Hotels() {
-		// TODO Auto-generated constructor stub
+	@Override
+	public String toString() {
+		return "Hotels [hotelName=" + hotelName + ", customerType=" + customerType + ", WeekendRates=" + WeekendRates
+				+ ", WeekdayRates=" + WeekdayRates + ", HotelRating=" + HotelRating + ", totalCost=" + totalCost + "]";
 	}
+		
 
 }

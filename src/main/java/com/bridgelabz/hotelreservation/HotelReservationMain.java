@@ -8,11 +8,13 @@
  */
 
 package com.bridgelabz.hotelreservation;
+import java.text.ParseException;
+
 import com.bridgelabz.hotelreservation.util.InputUtil;
 
 public class HotelReservationMain {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 
 		int choice, i = 0;
 		final HotelReservation menu = new HotelReservation();
@@ -36,7 +38,7 @@ public class HotelReservationMain {
 				menu.displayHotels();
 				break;
 			case 3:
-				menu.findCheapest();
+				menu.findHotel();
 				break;
 			case 4:
 				i = 1;

@@ -1,12 +1,11 @@
 package com.bridgelabz.hotelreservation;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import com.bridgelabz.hotelreservation.util.InputUtil;
 import com.bridgelabz.hotelreservation.model.Hotels;
+import com.bridgelabz.hotelreservation.service.Search;
 
 public class HotelReservation {
 
@@ -16,52 +15,51 @@ public class HotelReservation {
 	/**
 	 * UC-1 Method to add hotel in hotel reservation system
 	 */
-	public boolean addHotel() {
+	public void addHotel() {
 
 		final String hotel;
 		final String customerType;
-		final int WeekendRates, WeekdayRates, HotelRating;
+		final int WeekendRates, WeekdayRates, HotelRating, totalCost = 0;
 
 		System.out.print("Hotel Name : ");
-		hotel = ((Hotels) hotelList).getHotelName();
+		hotel = InputUtil.getStringValue();
 
 		System.out.print("Enter customer type : ");
-		customerType = ((Hotels) hotelList).getCustomerType();
+		customerType = InputUtil.getStringValue();
+		;
 
 		System.out.print("Enter weekend rates : ");
-		WeekendRates = ((Hotels) hotelList).getWeekendRates();
+		WeekendRates = InputUtil.getIntValue();
 
 		System.out.print("Enter weekday rates : ");
-		WeekdayRates = ((Hotels) hotelList).getWeekdayRates();
+		WeekdayRates = InputUtil.getIntValue();
 
 		System.out.print("Enter Ratings : ");
-		HotelRating = ((Hotels) hotelList).getHotelRating();
+		HotelRating = InputUtil.getIntValue();
 
-		hotelList.add(new Hotels(hotel, customerType, WeekendRates, WeekdayRates, HotelRating));
+		hotelList.add(new Hotels(hotel, customerType, WeekendRates, WeekdayRates, HotelRating, totalCost));
 
-		return false;
 	}
 
 	/**
-	 * UC-2 Method to find cheapest price of hotel by taking date
+	 * Method to find hotel for given condition
+	 * @throws ParseException
 	 */
 
-	public void findCheapest() {
+	public void findHotel() throws ParseException {
 
-		Scanner sc = new Scanner(System.in);
-
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy");
-		String dateTo = sc.next();
-		String dateFrom = sc.next();
-
-		try {
-			LocalDate date1 = LocalDate.parse(dateTo, dtf);
-			LocalDate date2 = LocalDate.parse(dateFrom, dtf);
-			long daysBetween = Duration.between(date1, date2).toDays();
-			System.out.println("Total Days: " + daysBetween);
-		} catch (Exception e) {
-			System.out.println("Error occurred" + e.getMessage());
+		System.out.println("Search hotel By...\n" + "1: Cheapest Price\n" + "2: Back");
+		int choice = InputUtil.getIntValue();
+		switch (choice) {
+		case 1:
+			Search.sortByPrice(hotelList);
+			break;
+		case 2:
+			return;
+		default:
+			System.out.println("Please Enter Valid Option...");
 		}
+
 	}
 
 	/**
@@ -72,8 +70,8 @@ public class HotelReservation {
 		if (hotelList.isEmpty()) {
 			System.out.println("No Records!!!");
 		} else {
-			for (Hotels hotels : hotelList) {
-				System.out.println(hotels);
+			for (Hotels hotel : hotelList) {
+				System.out.println(hotel);
 			}
 		}
 
