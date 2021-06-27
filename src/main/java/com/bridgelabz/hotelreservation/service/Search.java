@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import com.bridgelabz.hotelreservation.exception.HotelReservationException;
 import com.bridgelabz.hotelreservation.model.Hotels;
 
 public class Search {
@@ -19,7 +20,7 @@ public class Search {
 	 * @param hotel
 	 * @throws ParseException
 	 */
-	public static void sortByPrice(List<Hotels> hotel) throws ParseException {
+	public static void sortByPrice(List<Hotels> hotel) throws ParseException, HotelReservationException {
 
 		Scanner sc = new Scanner(System.in);
 
@@ -35,36 +36,34 @@ public class Search {
 		int totalCost = 0;
 
 		try {
-			Date date1 = sdf.parse(dateFrom);
-			Date date2 = sdf.parse(dateTo);
-			long difference_In_Time = date2.getTime() - date1.getTime();
-
-			long totalDays = (difference_In_Time / (1000 * 60 * 60 * 24)) % 365;
-			System.out.println("Total Days: " + totalDays);
-
-			List<Hotels> list = new ArrayList<>();
-			for (Hotels h : hotel) {
-				weekendrate = (int) (h.getWeekendRates() * totalDays);
-				weekdayrate = (int) (h.getWeekdayRates() * totalDays);
-				totalCost = weekendrate + weekdayrate;
-				h.setTotalCost(totalCost);
-				list.add(h);
-			}
+				Date date1 = sdf.parse(dateFrom);
+				Date date2 = sdf.parse(dateTo);
+				long difference_In_Time = date2.getTime() - date1.getTime();
+	
+				long totalDays = (difference_In_Time / (1000 * 60 * 60 * 24)) % 365;
+				System.out.println("Total Days: " + totalDays);
+	
+				List<Hotels> list = new ArrayList<>();
+				for (Hotels h : hotel) {
+					weekendrate = (int) (h.getWeekendRates() * totalDays);
+					weekdayrate = (int) (h.getWeekdayRates() * totalDays);
+					totalCost = weekendrate + weekdayrate;
+					h.setTotalCost(totalCost);
+					list.add(h);
+				}
 
 			// finds cheapest hotel
 			Hotels cheapest = list.stream().min(Comparator.comparing(Hotels::getTotalCost))
 					.orElseThrow(NoSuchElementException::new);
 			System.out.println("Cheapest hotel: " + cheapest);
 
-			// Best rated hotel for given rate
-			Hotels CheapAndBest = hotel.stream().max(Comparator.comparing(Hotels::getHotelRating))
+			// Best rated hotel for given Date
+			Hotels CheapAndBest = list.stream().max(Comparator.comparing(Hotels::getHotelRating))
 					.orElseThrow(NoSuchElementException::new);
 			System.out.println("Hotel with best ratings: " + CheapAndBest);
 
-		} catch (ParseException e) {
-
-			System.out.println("Error Occured" + e.getMessage());
-
+		} catch (Exception e) {
+			throw new HotelReservationException(e.getMessage());
 		}
 
 	}
@@ -81,7 +80,7 @@ public class Search {
 				.orElseThrow(NoSuchElementException::new);
 		System.out.println("Cheapest on weekday: " + weekdayCheap);
 
-		// find cheapest on weekdays
+		// find cheapest on weekends
 		Hotels weekendCheap = hotel.stream().min(Comparator.comparing(Hotels::getWeekendRates))
 				.orElseThrow(NoSuchElementException::new);
 		System.out.println("Cheapest on weekend: " + weekendCheap);

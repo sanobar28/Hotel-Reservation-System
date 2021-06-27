@@ -4,6 +4,7 @@
 
 package com.bridgelabz.hotelreservation.model;
 
+
 public class Hotels {
 
 	String hotelName;
@@ -72,7 +73,6 @@ public class Hotels {
 
 	}
 	
-
 	@Override
 	public String toString() {
 		return "Hotels [hotelName=" + hotelName + ", customerType=" + customerType + ", WeekendRates=" + WeekendRates

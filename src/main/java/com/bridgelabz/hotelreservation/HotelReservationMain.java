@@ -10,15 +10,16 @@
 package com.bridgelabz.hotelreservation;
 import java.text.ParseException;
 
+import com.bridgelabz.hotelreservation.exception.HotelReservationException;
 import com.bridgelabz.hotelreservation.util.InputUtil;
 
 public class HotelReservationMain {
 
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) throws ParseException, HotelReservationException {
 
 		int choice, i = 0;
 		final HotelReservation menu = new HotelReservation();
-
+		
 		while (i == 0) {
 			System.out.println("--- Hotel Reservation system ---\n");
 			System.out.println("\t--MENU--");
